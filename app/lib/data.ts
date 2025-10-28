@@ -1,3 +1,5 @@
+export const runtime = 'nodejs';
+
 import postgres from 'postgres';
 import {
   CustomerField,
@@ -9,8 +11,9 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
-
+const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: { rejectUnauthorized: false },
+});
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
